@@ -15,11 +15,11 @@ import { Role } from "../../lib/authentication";
 
 const router = new Router();
 
-router.get("/me", upload.any(), authentication(), controller.get);
+router.get("/me", authentication(), controller.get);
 
 router.post(
   "/",
-  upload.single(),
+  upload.single("profile"),
   validator.validateBody(createUser),
   controller.create
 );

@@ -4,7 +4,7 @@ import fs from "fs";
 const fileStorage = multer.diskStorage({
   destination: (ctx, file, cb) => {
     const date = new Date();
-    const dir = `./public/${date.getFullYear()}/${
+    const dir = `./public/attachments/${date.getFullYear()}/${
       date.getMonth() + 1
     }/${date.getDate()}`;
     if (!fs.existsSync(dir)) {

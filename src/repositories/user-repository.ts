@@ -22,18 +22,21 @@ const insert = async (user: User): Promise<User> => {
   const conn = await getConnection();
 
   try {
-    const result = await conn.table(TABLE).insert({
-      email: user.email,
-      username: user.username,
-      password: user.password,
-      role: user.role,
-      first_name: user.firstName,
-      last_name: user.lastName,
-      created: user.created,
-      updated: user.updated,
-    });
+    const result = await conn.table(TABLE).insert(
+      {
+        email: user.email,
+        username: user.username,
+        password: user.password,
+        role: user.role,
+        first_name: user.firstName,
+        last_name: user.lastName,
+        created: user.created,
+        updated: user.updated,
+      },
+      "id"
+    );
 
-    user.id = result[0];
+    user.id = result[0].id;
 
     return user;
   } catch (err: any) {

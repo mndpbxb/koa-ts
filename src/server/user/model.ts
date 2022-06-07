@@ -1,4 +1,5 @@
 import { User } from "../../entities";
+import { Attachment } from "../../entities/attachment";
 
 export interface CreateUser {
   email: string;
@@ -14,6 +15,8 @@ export class UserModel {
   public lastName: string;
   public created: Date;
   public updated: Date;
+  public profileImage?: Attachment;
+  public coverImage?: Attachment;
 
   constructor(user: User) {
     this.id = user.id;
@@ -22,5 +25,7 @@ export class UserModel {
     this.lastName = user.lastName;
     this.created = user.created;
     this.updated = user.updated;
+    this.coverImage = user.cover;
+    this.profileImage = user.profile;
   }
 }

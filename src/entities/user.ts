@@ -1,3 +1,4 @@
+import { Attachment } from "./attachment";
 export interface User {
   id?: number;
   firstName: string;
@@ -6,6 +7,8 @@ export interface User {
   email: string;
   password: string;
   role: string;
+  profile?: Attachment;
+  cover?: Attachment;
   created: Date;
   updated: Date;
   deleted?: Date;

@@ -1,11 +1,12 @@
 import { Context } from "koa";
 
-import { UserRepository } from "../../repositories";
+import { AttachmentRepository, UserRepository } from "../../repositories";
 import { CreateUser, UserModel } from "./model";
 import { User } from "../../entities/user";
 import { Hasher } from "../../lib/hasher/index";
 import { ValidationError } from "../../errors";
 import { Authenticator } from "../../lib/authentication";
+import { CreateAttachment } from "../../entities/attachment";
 
 const get = async (ctx: Context) => {
   ctx.body = new UserModel(
@@ -17,6 +18,14 @@ const get = async (ctx: Context) => {
 const create = async (ctx: Context) => {
   const userDto: CreateUser = ctx.request.body;
   const newUser = await UserRepository.insert(userDto as User);
+  const attachment: CreateAttachment = {
+    file: ctx.file,
+    ownerId: <number>newUser.id,
+    ownerType: "user",
+    purpose: "profile",
+  };
+
+  newUser.profile = await AttachmentRepository.insert(attachment);
 
   ctx.body = new UserModel(newUser);
   ctx.status = 201;
